@@ -8,6 +8,8 @@ import {
 	res: Response,
 	next: NextFunction,
   ) => {
-	const msg: string = typeof req.query.message === 'string' ? req.query.message: "not string";
-	res.send(await BooksService.search(msg));
+	const info = req.query;
+	const page = parseInt(info.page as string, 10) ? parseInt(info.page as string, 10) : 0;
+	const limit = parseInt(info.limit as string, 10) ? parseInt(info.limit as string, 10) : 5;
+	res.send(await BooksService.search(page, limit))
   }
